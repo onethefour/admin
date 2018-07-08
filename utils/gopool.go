@@ -9,7 +9,7 @@ type GoPool struct{
 	Locker *sync.Mutex
 	Cond  *sync.Cond
 	Max int32			//最大goroutine个数
-	Running int32 		//正在运行goroutine个数
+	Running int32 		//正在运行goroutine个数 
 }
 
 func NewGoPool(max int) *GoPool{
