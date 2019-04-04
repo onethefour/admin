@@ -1,4 +1,4 @@
-package gopool
+package utils
 
 
 import (
@@ -31,14 +31,11 @@ func (gp *GoPool) Set(max int){
 func (gp *GoPool) Incr(){
 	gp.Locker.Lock()
 	defer gp.Locker.Unlock()
-	for{
-		if gp.Max>gp.Running{
-			break
-		}
-		gp.Cond.Wait()
-	}
+	
+    	for !(gp.Max > gp.Running) {
+        	gp.Cond.Wait()
+    	}
 	atomic.AddInt32(&gp.Running, 1)
-
 }
 //结束一个goroutine
 func (gp *GoPool)Dec(){
